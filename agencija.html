@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"/>
+        <link rel="stylesheet" href="stilovi/style.css"/>
+        <link rel="stylesheet" href="stilovi/agencija.css"/>
+        <link rel="stylesheet" href="stilovi/naslov_responsive.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+        <title id="title"></title>
+    </head>
+    <body class="font">
+      <header class="sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-fixed-top bg-purple">
+            <a class="navbar-brand" href="index.html"><img src="slike/globe-2-48.png" alt="Logo"/></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html">Početna</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#footer">O nama</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" data-target="#prijava">Prijava</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" data-target="#registracija">Registracija</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="admin_agencije.html">Izmena agencija</a>
+                    <a class="dropdown-item" href="admin_korisnici.html">Izmena korisnika</a>
+                  </div>
+                </li>
+              </ul>
+              <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Pretraga po destinaciji" id="pretragaDestinacija" oninput=pretrazi()>
+                <select class="form-control" id="pretragaTip"onchange=pretrazi()>
+                  <option selected>Pretraga po tipu</option>
+                  <option>Letovanje</option>
+                  <option>Zimovanje</option>
+                  <option>Gradovi Evrope</option>
+                </select>&nbsp;
+                <select class="form-control" id="pretragaPrevoz" onchange=pretrazi()>
+                  <option selected>Pretraga po prevozu</option>
+                  <option>avion</option>
+                  <option>autobus</option>
+                  <option>sopstveni</option>
+                </select>
+              </form>
+            </div>
+          </nav>
+    </header>
+    <!-- Modal -->
+    <div class="modal fade" id="prijava" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title purple" id="exampleModalLongTitle">Prijava</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body purple" style="font-size: 1rem;">
+            <label for="korImeLogin">Korisničko ime</label>
+            <input id="korImeLogin" name="korImeLogin" class="form-control" type="text">
+            <label for="lozinkaLogin">Lozinka</label>
+            <input id="lozinkaLogin" name="lozinkaLogin" class="form-control" type="password">
+          </div><br>
+          <div id="svePraznoLogin" class="alert alert-danger" role="alert" style="display: none;">
+            Sva polja moraju biti popunjena!
+          </div>
+          <div id="uspesanLogin" class="alert alert-success" role="alert" style="display: none;">
+            Uspešno ste se loginovali!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Zatvori</button>
+            <button class="btn btn-warning purple" onclick=validacijaLogin()>Prijava</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="registracija" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title purple" id="exampleModalLongTitle">Registracija</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" style="font-size: 1rem;">
+            <form class="purple" id="formaRegistracija">
+              <label for="korisnickoIme">Korisničko ime</label>
+              <input id="korisnickoIme" name="korisnickoIme" class="form-control" type="text">
+              <label for="lozinka">Lozinka</label>
+              <input id="lozinka" name="lozinka" class="form-control" type="password" placeholder="Lozinka mora imati najmanje 8 karaktera">
+              <p id="nevalidnaLozinka" style="color:red; display: none;">Lozinka mora imati najmanje 8 karaketera!</p>
+              <label for="ime">Ime</label>
+              <input id="ime" name="ime" class="form-control" type="text">
+              <label for="prezime">Prezime</label>
+              <input id="prezime" name="prezime" class="form-control" type="text">
+              <label for="email">Email</label>
+              <input id="email" name="email" class="form-control" type="email" placeholder="e.g. example@mail.com">
+              <p id="emailNevalidan" style="color:red; display: none;">Email nije u ispravnom formatu!</p>
+              <label for="datumRodjenja">Datum rođenja</label>
+              <input id="datumRodjenja" name="datumRodjenja" class="form-control" type="date">
+              <p id="datumNevalidan" style="color:red; display: none;">Ne možete izabrati datum iz budućnosti!</p>
+              <label for="adresa">Adresa</label>
+              <input id="adresa" name="adresa" class="form-control" type="text">
+              <label for="telefon">Telefon</label>
+              <input id="telefon" name="telefon" class="form-control" type="text" placeholder="e.g. 061454676 or 0628097063">
+              <p id="telefonNevalidan" style="color:red; display: none;">Telefon nije u ispravnom formatu!</p>
+            </form><br>
+            <div id="svePrazno" class="alert alert-danger" role="alert" style="display: none;">
+              Sva polja moraju biti popunjena!
+            </div>
+            <div id="uspesnaRegistracija" class="alert alert-success" role="alert" style="display: none;">
+              Uspešno ste se registrovali!
+            </div> 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Zatvori</button>
+            <button class="btn btn-warning purple" onclick=registrujSe()>Registracija</button>
+          </div>
+        </div>
+      </div>
+    </div>
+        <main>
+            <div class="container purple" style="margin-top: 30px;">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 d-flex justify-content-center">
+                      <img id="logo" src="" style="max-width: 400px; min-width: 100px;"/>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <h1 id="naslov"></h1>
+                        <p id="adresaAgencije"><b>Adresa:</b> </p>
+                        <p id="godina"><b>Godina:</b> </p>
+                        <p id="telefonAgencije"><b>Broj telefona:</b> </p>
+                        <p id="emailAgencije"><b>Email:</b> </p>
+                    </div>
+                </div>
+            </div>
+          <h2 class="naslov">Turističke destinacije</h2>
+          <div class="container">
+            <div class="row" id="row">
+            </div>
+            <div class="row" id="pretrazeno">
+            </div>
+          </div>
+        </main>
+        <!-- Footer -->
+        <footer class="text-center text-lg-start text-white bg-purple" id="footer">
+          <!-- Section: Social media -->
+          <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+            <!-- Left -->
+            <div class="me-5 d-none d-lg-block">
+              <span>Pronađite nas na društvenim mrežama:</span>
+            </div>
+            <!-- Left -->
+
+            <!-- Right -->
+            <div>
+              <a href="https://www.facebook.com" class="me-4 text-reset">
+                <i class="bi bi-facebook"></i>
+              </a>
+              <a href="https://www.twitter.com" class="me-4 text-reset">
+                <i class="bi bi-twitter"></i>
+              </a>
+              <a href="https://www.google.com" class="me-4 text-reset">
+                <i class="bi bi-google"></i>
+              </a>
+              <a href="https://www.instagram.com" class="me-4 text-reset">
+                <i class="bi bi-instagram"></i>
+              </a>
+              <a href="https://www.linkedin.com" class="me-4 text-reset">
+                <i class="bi bi-linkedin"></i>
+              </a>
+            </div>
+            <!-- Right -->
+          </section>
+          <!-- Section: Social media -->
+          <!-- Copyright -->
+          <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+            © 2023 Copyright: David Stakić SV 15/2022
+          </div>
+          <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
+        <script src="script/agencija.js"></script>
+        <script src="script/registracija.js"></script>
+        <script src="script/validacijaLogin.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+</html>
